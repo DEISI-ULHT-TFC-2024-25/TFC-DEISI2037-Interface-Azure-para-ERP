@@ -1,5 +1,5 @@
 import mysql.connector
-#test commit
+
 # Configuração do banco de dados
 DB_CONFIG = {
     'host': '192.168.0.213',
