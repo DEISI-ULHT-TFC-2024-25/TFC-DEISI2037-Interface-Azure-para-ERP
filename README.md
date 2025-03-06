@@ -32,4 +32,5 @@ A **Interface Azure para ERP** é uma API que permite a integração automatizad
 └── 📂 docs/  # Documentação da API
 
 
-![](Arquitetura_da_Solucao.png?raw=true "Arquitetura")
+![Arquitetura](Arquitetura_da_Solucao.png)
+
