@@ -1,3 +1,3 @@
 # TFC
 
-![](Arquitetura da Solução.png?raw=true "Arquitetura")
+![](Arquitetura_da_Solucao.png?raw=true "Arquitetura")
