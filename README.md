@@ -2,6 +2,7 @@
 
 # Interface Azure para ERP
 
+![](Arquitetura_da_Solucao.png?raw=true "Arquitetura")
 
 ## 📌 Sobre o Projeto
 
@@ -22,6 +23,7 @@ A **Interface Azure para ERP** é uma API que permite a integração automatizad
 - **Bsase de Dados** - MySQL  
 - **ERP-GRH** (Sistema externo conectado via API)  
 
+
 ## 📂 Estrutura do Repositório
 
 ```bash
@@ -30,7 +32,3 @@ A **Interface Azure para ERP** é uma API que permite a integração automatizad
 ├── 📜 requirements.txt  # Dependências do projeto
 ├── 📜 main.py  # Arquivo principal da API
 └── 📂 docs/  # Documentação da API
-
-
-![Arquitetura](Arquitetura_da_Solucao.png)
-
