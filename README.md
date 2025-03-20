@@ -1,5 +1,4 @@
 # TFC
-TEST
 # Interface Azure para ERP
 
 ![](Arquitetura_da_Solucao.png?raw=true "Arquitetura")
