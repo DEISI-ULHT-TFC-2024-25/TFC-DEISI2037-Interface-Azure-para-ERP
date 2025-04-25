@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage User Access and Licenses</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script>
+        // Function to add a user
+        function addUser() {
+            const firstName = document.getElementById("firstName").value;
+            const lastName = document.getElementById("lastName").value;
+            const email = document.getElementById("email").value;
+            const custom1 = document.getElementById("custom1").value;
+            const custom2 = document.getElementById("custom2").value;
+
+            console.log("Submitting add user request...");
+            console.log({
+                first_name: firstName,
+                last_name: lastName,
+                email: email,
+                custom1: custom1,
+                custom2: custom2,
+                action: "add"
+            });
+
+            fetch('http://192.168.0.81:9001/manage-user-orangehrm', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    first_name: firstName,
+                    last_name: lastName,
+                    email: email,
+                    custom1: custom1,
+                    custom2: custom2,
+                    action: "add"  // Action to indicate adding a user
+                })
+            })
+            .then(response => {
+                console.log("Response received:", response);
+                return response.json();
+            })
+            .then(data => {
+                console.log("Data received:", data);
+                alert(data.message || data.error);
+
+                // Clear the form fields after the request
+                document.getElementById("firstName").value = "";
+                document.getElementById("lastName").value = "";
+                document.getElementById("email").value = "";
+                document.getElementById("custom1").value = "No";
+                document.getElementById("custom2").value = "No";
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Function to remove a user
+        function removeUser() {
+            const email = document.getElementById("removeEmail").value;
+
+            console.log("Submitting remove user request...");
+            console.log({
+                email: email,
+                action: "remove"
+            });
+
+            fetch('http://192.168.0.81:9001/manage-user-orangehrm', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    action: "remove"  // Action to indicate removing a user
+                })
+            })
+            .then(response => {
+                console.log("Response received:", response);
+                return response.json();
+            })
+            .then(data => {
+                console.log("Data received:", data);
+                alert(data.message || data.error);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Manage User Access and Licenses</h1>
+
+    <h2>Add New User</h2>
+    <form id="addUserForm" onsubmit="event.preventDefault(); addUser();">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" required><br><br>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required><br><br>
+
+        <label for="custom1">Custom Field 1 (Office 365 Access):</label>
+        <select id="custom1">
+            <option value="No">NO</option>
+            <option value="YES">YES</option>
+        </select><br><br>
+
+        <label for="custom2">Custom Field 2 (SharePoint Access):</label>
+        <select id="custom2">
+            <option value="NO">NO</option>
+            <option value="YES">YES</option>
+        </select><br><br>
+
+        <button type="submit">Add User</button>
+    </form>
+
+    <h2>Remove User</h2>
+    <form id="removeUserForm" onsubmit="event.preventDefault(); removeUser();">
+        <label for="removeEmail">Email:</label>
+        <input type="email" id="removeEmail" required><br><br>
+
+        <button type="submit">Remove User</button>
+    </form>
+
+    <p id="response-message"></p>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
