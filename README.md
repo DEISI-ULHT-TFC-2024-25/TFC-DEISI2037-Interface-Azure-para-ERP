@@ -21,6 +21,8 @@ A **Interface Azure para ERP** é uma API que permite a integração automatizad
 - **Microsoft Azure** (Entra ID, Key Vault, Graph API)  
 - **Bsase de Dados** - MySQL  
 - **ERP-GRH** (Sistema externo conectado via API)  
+- **OrangeHRM** (Human resource management system)  
+    
 
 
 ## 📂 Estrutura do Repositório
