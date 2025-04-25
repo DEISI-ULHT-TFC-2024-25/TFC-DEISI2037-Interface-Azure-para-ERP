@@ -18,6 +18,7 @@ A **Interface Azure para ERP** é uma API que permite a integração automatizad
 ## 🛠️ Tecnologias Utilizadas
 
 - **Python** (FastAPI) - Desenvolvimento da API  
+- **JavaSprit** Desenvolvimento do UserInterface de teste
 - **Microsoft Azure** (Entra ID, Key Vault, Graph API)  
 - **Bsase de Dados** - MySQL  
 - **ERP-GRH** (Sistema externo conectado via API)  
