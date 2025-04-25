@@ -1,6 +1,6 @@
 import mysql.connector
 
-# Configuração do banco de dados
+# Configuração do base de dados
 DB_CONFIG = {
     'host': '192.168.0.213',
     'port': 3306,
@@ -15,7 +15,7 @@ DB_CONFIG = {
 TABLE_NAME = 'hs_hr_employee'
 
 def obter_email_disponiveis():
-    """Função que lista os e-mails dos usuários cadastrados no banco"""
+    """Função que lista os e-mails dos utilizadores na base de dados"""
     try:
         conn = mysql.connector.connect(**DB_CONFIG)
         cursor = conn.cursor()
@@ -27,7 +27,7 @@ def obter_email_disponiveis():
             print("Nenhum e-mail encontrado no banco de dados.")
             return None
 
-        print("\nLista de usuários disponíveis:")
+        print("\nLista de utilizadors disponíveis:")
         for emp_number, email in emails:
             print(f"ID: {emp_number} - Email: {email}")
 
@@ -78,7 +78,7 @@ def atualizar_dados_por_email(email, novo_custom1, novo_custom2):
 # Fluxo do programa
 emails_disponiveis = obter_email_disponiveis()
 if emails_disponiveis:
-    email_escolhido = input("\nDigite o e-mail do usuário que deseja atualizar: ").strip()
+    email_escolhido = input("\nDigite o e-mail do utilizador que deseja atualizar: ").strip()
     novo_valor_custom1 = input("Digite o novo valor para custom1: ").strip()
     novo_valor_custom2 = input("Digite o novo valor para custom2: ").strip()
 
