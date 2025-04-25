@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,24 +39,24 @@
                     action: "add"  // Action to indicate adding a user
                 })
             })
-            .then(response => {
-                console.log("Response received:", response);
-                return response.json();
-            })
-            .then(data => {
-                console.log("Data received:", data);
-                alert(data.message || data.error);
+                .then(response => {
+                    console.log("Response received:", response);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Data received:", data);
+                    alert(data.message || data.error);
 
-                // Clear the form fields after the request
-                document.getElementById("firstName").value = "";
-                document.getElementById("lastName").value = "";
-                document.getElementById("email").value = "";
-                document.getElementById("custom1").value = "No";
-                document.getElementById("custom2").value = "No";
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+                    // Clear the form fields after the request
+                    document.getElementById("firstName").value = "";
+                    document.getElementById("lastName").value = "";
+                    document.getElementById("email").value = "";
+                    document.getElementById("custom1").value = "No";
+                    document.getElementById("custom2").value = "No";
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         }
 
         // Function to remove a user
@@ -78,20 +79,66 @@
                     action: "remove"  // Action to indicate removing a user
                 })
             })
-            .then(response => {
-                console.log("Response received:", response);
-                return response.json();
-            })
-            .then(data => {
-                console.log("Data received:", data);
-                alert(data.message || data.error);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+                .then(response => {
+                    console.log("Response received:", response);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Data received:", data);
+                    alert(data.message || data.error);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         }
+
+        // Function to update a user
+        function updateUser() {
+            const email = document.getElementById("updateEmail").value;
+            const custom1 = document.getElementById("updateCustom1").value;
+            const custom2 = document.getElementById("updateCustom2").value;
+
+            console.log("Submitting update user request...");
+            console.log({
+                email: email,
+                custom1: custom1,
+                custom2: custom2,
+                action: "update"
+            });
+
+            fetch('http://192.168.0.81:9001/manage-user-orangehrm', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    custom1: custom1,
+                    custom2: custom2,
+                    action: "update"
+                })
+            })
+                .then(response => {
+                    console.log("Response received:", response);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Data received:", data);
+                    alert(data.message || data.error);
+
+                    // Reset fields
+                    document.getElementById("updateEmail").value = "";
+                    document.getElementById("updateCustom1").value = "No";
+                    document.getElementById("updateCustom2").value = "No";
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
     </script>
 </head>
+
 <body>
     <h1>Manage User Access and Licenses</h1>
 
@@ -129,8 +176,30 @@
         <button type="submit">Remove User</button>
     </form>
 
+    <h2>Update User Access</h2>
+    <form id="updateUserForm" onsubmit="event.preventDefault(); updateUser();">
+        <label for="updateEmail">Email:</label>
+        <input type="email" id="updateEmail" required><br><br>
+
+        <label for="updateCustom1">Custom Field 1 (Office 365 Access):</label>
+        <select id="updateCustom1">
+            <option value="No">NO</option>
+            <option value="YES">YES</option>
+        </select><br><br>
+
+        <label for="updateCustom2">Custom Field 2 (SharePoint Access):</label>
+        <select id="updateCustom2">
+            <option value="No">NO</option>
+            <option value="YES">YES</option>
+        </select><br><br>
+
+        <button type="submit">Update User</button>
+    </form>
+
+
     <p id="response-message"></p>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
+
 </html>

@@ -98,6 +98,27 @@ def manage_user_orangehrm():
                 connection.rollback()  # Rollback if there's an error
                 return jsonify({"error": f"Error removing user: {str(e)}"}), 500
 
+        elif action == "update":
+            custom1 = data.get("custom1", "No")
+            custom2 = data.get("custom2", "No")
+            print(f"Updating user with email: {email}, custom1: {custom1}, custom2: {custom2}")
+
+            update_employee_query = """
+            UPDATE hs_hr_employee 
+            SET custom1 = %s, custom2 = %s 
+            WHERE emp_work_email = %s
+            """
+            try:
+                cursor.execute(update_employee_query, (custom1, custom2, email))
+                connection.commit()
+                print("User updated successfully.")
+                return jsonify({"message": "User updated in OrangeHRM"}), 200
+            except Exception as e:
+                print(f"Error executing update query: {e}")
+                connection.rollback()
+                return jsonify({"error": f"Error updating user: {str(e)}"}), 500
+
+
         return jsonify({"error": "Invalid action"}), 400
 
     except Exception as e:
@@ -112,4 +133,3 @@ def manage_user_orangehrm():
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=9001)
-
