@@ -136,67 +136,74 @@
                 });
         }
 
+        function showForm(action) {
+            document.getElementById('form-add').style.display = 'none';
+            document.getElementById('form-remove').style.display = 'none';
+            document.getElementById('form-update').style.display = 'none';
+
+            document.getElementById(`form-${action}`).style.display = 'block';
+        }
+
+
     </script>
 </head>
 
 <body>
     <h1>Manage User Access and Licenses</h1>
+    <div style="margin-bottom: 20px;">
+        <button onclick="showForm('add')">ADD</button>
+        <button onclick="showForm('remove')">REMOVE</button>
+        <button onclick="showForm('update')">UPDATE</button>
+    </div>
 
-    <h2>Add New User</h2>
-    <form id="addUserForm" onsubmit="event.preventDefault(); addUser();">
-        <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" required><br><br>
+    <!-- ADD FORM -->
+    <div id="form-add" class="form-section" style="display: none;">
+        <h2>Add New User</h2>
+        <form onsubmit="event.preventDefault(); addUser();">
+            <label>First Name:</label><input type="text" id="firstName"><br>
+            <label>Last Name:</label><input type="text" id="lastName"><br>
+            <label>Email:</label><input type="email" id="email"><br>
+            <label>Custom Field 1 (Office 365 Access):</label>
+            <select id="custom1">
+                <option value="NO">NO</option>
+                <option value="YES">YES</option>
+            </select><br>
+            <label>Custom Field 2 (SharePoint Access):</label>
+            <select id="custom2">
+                <option value="NO">NO</option>
+                <option value="YES">YES</option>
+            </select><br>
+            <button type="submit">Add User</button>
+        </form>
+    </div>
 
-        <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" required><br><br>
+    <!-- REMOVE FORM -->
+    <div id="form-remove" class="form-section" style="display: none;">
+        <h2>Remove User</h2>
+        <form onsubmit="event.preventDefault(); removeUser();">
+            <label>Email:</label><input type="email" id="removeEmail"><br>
+            <button type="submit">Remove User</button>
+        </form>
+    </div>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" required><br><br>
-
-        <label for="custom1">Custom Field 1 (Office 365 Access):</label>
-        <select id="custom1">
-            <option value="No">NO</option>
-            <option value="YES">YES</option>
-        </select><br><br>
-
-        <label for="custom2">Custom Field 2 (SharePoint Access):</label>
-        <select id="custom2">
-            <option value="NO">NO</option>
-            <option value="YES">YES</option>
-        </select><br><br>
-
-        <button type="submit">Add User</button>
-    </form>
-
-    <h2>Remove User</h2>
-    <form id="removeUserForm" onsubmit="event.preventDefault(); removeUser();">
-        <label for="removeEmail">Email:</label>
-        <input type="email" id="removeEmail" required><br><br>
-
-        <button type="submit">Remove User</button>
-    </form>
-
-    <h2>Update User Access</h2>
-    <form id="updateUserForm" onsubmit="event.preventDefault(); updateUser();">
-        <label for="updateEmail">Email:</label>
-        <input type="email" id="updateEmail" required><br><br>
-
-        <label for="updateCustom1">Custom Field 1 (Office 365 Access):</label>
-        <select id="updateCustom1">
-            <option value="No">NO</option>
-            <option value="YES">YES</option>
-        </select><br><br>
-
-        <label for="updateCustom2">Custom Field 2 (SharePoint Access):</label>
-        <select id="updateCustom2">
-            <option value="No">NO</option>
-            <option value="YES">YES</option>
-        </select><br><br>
-
-        <button type="submit">Update User</button>
-    </form>
-
-
+    <!-- UPDATE FORM -->
+    <div id="form-update" class="form-section" style="display: none;">
+        <h2>Update User Access</h2>
+        <form onsubmit="event.preventDefault(); updateUser();">
+            <label>Email:</label><input type="email" id="updateEmail"><br>
+            <label>Custom Field 1 (Office 365 Access):</label>
+            <select id="updateCustom1">
+                <option value="NO">NO</option>
+                <option value="YES">YES</option>
+            </select><br>
+            <label>Custom Field 2 (SharePoint Access):</label>
+            <select id="updateCustom2">
+                <option value="NO">NO</option>
+                <option value="YES">YES</option>
+            </select><br>
+            <button type="submit">Update User</button>
+        </form>
+    </div>
     <p id="response-message"></p>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>

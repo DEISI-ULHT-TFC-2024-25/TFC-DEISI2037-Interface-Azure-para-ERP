@@ -44,4 +44,25 @@ input[type="submit"]:hover {
     font-size: 1.1em;
     color: green;
 }
+button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+}
 
+button:hover {
+    background-color: #0056b3;
+}
+
+.form-section {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-top: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
