@@ -31,7 +31,8 @@ A **Interface Azure para ERP** é uma API que permite a integração automatizad
 ```bash
 📦 Interface-Azure-ERP
 ├── 📜 README.md
-├── 📜 requirements.txt  # Dependências do projeto (por anunciar)
-├── 📜 main.py  # Arquivo principal da API
+├── 📜 requirements.txt  # Dependências do projeto
+├── 📜 azure_integration.py  # Arquivo principal da API ligada ao Azure
+├── 📜 main.py  # Arquivo principal da API que liga a uma BD (OrangeHRM)
 ├── 📂 static/  # UserInterface css
 └── 📂 templates/ # UserInterface  html
