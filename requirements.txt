@@ -1,2 +1,11 @@
-requirements.txt
+Flask==3.0.3
+Flask-Cors==4.0.0
+requests==2.32.3
+pymysql==1.1.1
+msal==1.27.0
+python-dotenv==1.0.1
+
+How to install requirements:
+pip install -r requirements.txt
+
 (to Add requirements information)
