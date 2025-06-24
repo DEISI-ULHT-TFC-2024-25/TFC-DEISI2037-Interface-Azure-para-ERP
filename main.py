@@ -2,8 +2,8 @@ import requests
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 import pymysql
-from azure_integration import criar_utilizador_azure, remover_utilizador_azure, atualizar_utilizador_azure, obter_sku_id_por_nome, atribuir_licenca_ms365, remover_licenca_ms365, DOMAIN
-
+from azure_integration import criar_utilizador_azure, remover_utilizador_azure, obter_info_utilizador_logedIn, atualizar_utilizador_azure, obter_sku_id_por_nome, atribuir_licenca_ms365, remover_licenca_ms365, DOMAIN, TENANT_ID, AUTHORITY, CLIENT_ID, SCOPES 
+from msal import PublicClientApplication
 
 app = Flask(__name__)
 CORS(app)
@@ -160,6 +160,24 @@ def manage_user_orangehrm():
             cursor.close()
         if 'connection' in locals():
             connection.close()
+
+@app.route("/me", methods=["GET"])
+def get_logged_in_user():
+    
+    try:
+        app_msal = PublicClientApplication(CLIENT_ID, authority=AUTHORITY)
+        result = app_msal.acquire_token_interactive(scopes=SCOPES)
+
+        if "access_token" not in result:
+            return jsonify({"error": "Token not acquired"}), 401
+
+        token = result["access_token"]
+        user_data = obter_info_utilizador_logedIn(token)
+        return jsonify(user_data), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=9001)

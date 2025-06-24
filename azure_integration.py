@@ -1,6 +1,8 @@
 import requests
 from msal import ConfidentialClientApplication
+import json
 import os
+from msal import PublicClientApplication
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -8,6 +10,8 @@ load_dotenv()
 # Configurações Azure AD
 TENANT_ID = "138ccc06-516b-4e81-8813-06fd2531bddc"
 CLIENT_ID = "13d580a1-6f88-488c-87cc-b9e5ebf5e1d3"
+AUTHORITY = f"https://login.microsoftonline.com/{TENANT_ID}"
+SCOPES = ["User.Read"]
 CLIENT_SECRET = os.getenv("AZURE_CLIENT_SECRET")   
 DOMAIN = "grupolusofona.onmicrosoft.com" 
 
@@ -88,6 +92,20 @@ def remover_licenca_ms365(user_principal_name, sku_id):
         print(f"Erro ao remover licença: {response.status_code} - {response.text}")
         return False
 
+# Listar utilizadores do Azure AD puramente para testes
+def obter_info_utilizador_logedIn(access_token):
+    headers = {
+        "Authorization": f"Bearer {access_token}"
+    }
+    url = "https://graph.microsoft.com/v1.0/me"
+    response = requests.get(url, headers=headers)
+
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print("Erro:", response.status_code, response.text)
+        return None
+
 
 # Criar utilizador no Entra ID
 def criar_utilizador_azure(email, nome, apelido):
@@ -158,5 +176,12 @@ def atualizar_utilizador_azure(user_principal_name, novo_nome):
         print(f"Erro ao atualizar utilizador: {response.status_code} - {response.text}")
         return False
 
+#testes
+def login_interativo():
+    app = PublicClientApplication(CLIENT_ID, authority=AUTHORITY)
+    result = app.acquire_token_interactive(scopes=SCOPES)
+    return result.get("access_token")
 
-criar_utilizador_azure("tiago.a@gmail.com ", "Tiago", "Amaro") #teste
+#token = login_interativo()
+#utilizador = obter_info_utilizador_logedIn(token)
+#print(json.dumps(utilizador, indent=2, ensure_ascii=False))

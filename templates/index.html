@@ -140,11 +140,26 @@
             document.getElementById('form-add').style.display = 'none';
             document.getElementById('form-remove').style.display = 'none';
             document.getElementById('form-update').style.display = 'none';
+            document.getElementById('form-info').style.display = 'none';
 
             document.getElementById(`form-${action}`).style.display = 'block';
         }
 
+       function getLoggedInUser() {
+        document.getElementById('form-add').style.display = 'none';
+        document.getElementById('form-remove').style.display = 'none';
+        document.getElementById('form-update').style.display = 'none';
+        document.getElementById('form-info').style.display = 'block';
 
+        fetch("http://localhost:9001/me")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("user-profile-data").textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                console.error("Erro ao obter utilizador:", error);
+            });
+}
     </script>
 </head>
 
@@ -154,6 +169,8 @@
         <button onclick="showForm('add')">ADD</button>
         <button onclick="showForm('remove')">REMOVE</button>
         <button onclick="showForm('update')">UPDATE</button>
+        <button onclick="getLoggedInUser()">GET MY INFO</button>
+        
     </div>
 
     <!-- ADD FORM -->
@@ -163,17 +180,17 @@
             <label>First Name:</label><input type="text" id="firstName"><br>
             <label>Last Name:</label><input type="text" id="lastName"><br>
             <label>Email:</label><input type="email" id="email"><br>
-            <label>Custom Field 1 (Office 365 Access):</label>
+            <label for="custom1-switch">Office 365 Access:</label>
             <select id="custom1">
                 <option value="NO">NO</option>
                 <option value="YES">YES</option>
             </select><br>
-            <label>Custom Field 2 (SharePoint Access):</label>
+            <label>SharePoint Access:</label>
             <select id="custom2">
                 <option value="NO">NO</option>
                 <option value="YES">YES</option>
             </select><br>
-            <button type="submit">Add User</button>
+            <button type="submit">ADD USER</button>
         </form>
     </div>
 
@@ -182,7 +199,7 @@
         <h2>Remove User</h2>
         <form onsubmit="event.preventDefault(); removeUser();">
             <label>Email:</label><input type="email" id="removeEmail"><br>
-            <button type="submit">Remove User</button>
+            <button type="submit">REMOVE USER</button>
         </form>
     </div>
 
@@ -191,18 +208,22 @@
         <h2>Update User Access</h2>
         <form onsubmit="event.preventDefault(); updateUser();">
             <label>Email:</label><input type="email" id="updateEmail"><br>
-            <label>Custom Field 1 (Office 365 Access):</label>
+            <label>Office 365 Access:</label>
             <select id="updateCustom1">
                 <option value="NO">NO</option>
                 <option value="YES">YES</option>
             </select><br>
-            <label>Custom Field 2 (SharePoint Access):</label>
+            <label>SharePoint Access:</label>
             <select id="updateCustom2">
                 <option value="NO">NO</option>
                 <option value="YES">YES</option>
             </select><br>
-            <button type="submit">Update User</button>
+            <button type="submit">UPDATE USER</button>
         </form>
+    </div>
+    <div id="form-info" class="form-section" style="padding: 10px; margin-top: 20px; display: none;">
+        <h3>Informações do Utilizador</h3>
+        <pre id="user-profile-data" style="white-space: pre-wrap;"></pre>
     </div>
     <p id="response-message"></p>
 
