@@ -50,7 +50,7 @@ def manage_user_orangehrm():
         cursor = connection.cursor()
 
 
-        # Action ADD - this will insert a new user into OrangeHRM and Azur
+        # Adiciona um utilizador ao OrangeHRM e Azure
         if action == "add":
             first_name = data.get("first_name")
             last_name = data.get("last_name")
@@ -88,7 +88,7 @@ def manage_user_orangehrm():
                 return jsonify({"error": f"Error inserting user: {str(e)}"}), 500
             
             
-        # Action REMOVE - this will delete a user from OrangeHRM and Azure
+        # Remove um utilizador ao OrangeHRM e Azure
         elif action == "remove":
             print(f"Removing user with email: {email}")
 
@@ -123,7 +123,7 @@ def manage_user_orangehrm():
                 connection.rollback()
                 return jsonify({"error": f"Error removing user: {str(e)}"}), 500
 
-        # Action UPDATE - this will update a user's custom fields in OrangeHRM and Azure
+        # Update um utilizador ao OrangeHRM e Azure
         elif action == "update":
             custom1 = data.get("custom1", "No")
             custom2 = data.get("custom2", "No")
@@ -161,6 +161,8 @@ def manage_user_orangehrm():
         if 'connection' in locals():
             connection.close()
 
+
+# Recebe informação do utilizador logedIn no Entra ID
 @app.route("/me", methods=["GET"])
 def get_logged_in_user():
     

@@ -151,7 +151,7 @@ def remover_utilizador_azure(user_principal_name):
         print(f"Erro ao remover utilizador: {response.status_code} - {response.text}")
         return False
 
-# Atualizar utilizador (ex: mudar displayName ou atributos personalizados)
+# Atualizar utilizador (ex: mudar displayName, ou licenças)
 def atualizar_utilizador_azure(user_principal_name, novo_nome):
     token = obter_token()
     headers = {
