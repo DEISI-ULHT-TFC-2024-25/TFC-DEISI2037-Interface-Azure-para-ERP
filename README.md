@@ -9,7 +9,6 @@ A **Interface Azure para ERP** é uma API que permite a integração automatizad
 
 ## 🚀 Funcionalidades
 
-✅ Sincronização automática de utilizadores e permissões do ERP-GRH para o **Azure Entra ID**  
 ✅ Gestão centralizada de acessos ao **Microsoft 365** (Outlook, SharePoint, Teams, etc.)  
 ✅ Automação da configuração de **máquinas virtuais (VMs), Azure SQL e AVDs**  
 ✅ Conformidade com regulamentos como **GDPR**  
